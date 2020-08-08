@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: npmdev
+  labels:
+    app: npmdev
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+  selector:
+    app: npmdev

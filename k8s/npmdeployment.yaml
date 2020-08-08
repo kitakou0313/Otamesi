@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: npmdev
+  labels:
+    app: npmdev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: npmdev
+  template:
+    metadata:
+      labels:
+        app: npmdev
+    spec:
+      volumes:
+        - name: src
+          hostPath:
+            path: "//C/Users/17T2055F/Desktop/ayamati/otamesi"
+            type: DirectoryOrCreate
+      containers:
+        - image: node:lts
+          name: npmdev
+          workingDir: /usr/src/app
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: src
+          ports:
+            - containerPort: 3000
+              name: npmdev
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - npm install && npm run dev

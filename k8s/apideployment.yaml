@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      volumes:
+        - name: src
+          hostPath:
+            path: "//C/Users/17T2055F/Desktop/ayamati/otamesi/backend"
+            type: DirectoryOrCreate
+      containers:
+        - image: kitakou0313/flask_on_container:latest
+          name: api
+          workingDir: /usr/src/app
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: src
+          ports:
+            - containerPort: 5000
+              name: api
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - flask run --host 0.0.0.0 --port 5000

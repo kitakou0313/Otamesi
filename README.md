@@ -1,8 +1,7 @@
 # Otamesi
 k8s + Vue(vite)でつくる学習用コンテナ自走デプロイアプリケーション
 
-k8sディレクトリ内のマニフェストのmountパスを修正
+# How to 開発環境デプロイ
 
-開発環境デプロイ
-
-kubectl apply -f ./k8s
+1. k8sディレクトリ内のマニフェストのmountパスを修正
+2. kubectl apply -f ./k8s

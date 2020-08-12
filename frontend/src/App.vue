@@ -1,10 +1,10 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <frontterminal />
+  <frontterminal></frontterminal>
 </template>
 
 <script>
 import frontterminal from './components/frontTerminal.vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',

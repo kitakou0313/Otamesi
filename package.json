@@ -6,7 +6,6 @@
     "build": "vite build"
   },
   "dependencies": {
-    "socket.io": "^2.3.0",
     "vue": "^3.0.0-rc.1",
     "xterm": "^4.8.1",
     "xterm-addon-attach": "^0.6.0"

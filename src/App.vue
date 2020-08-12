@@ -1,15 +1,17 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  <Terminal />
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import Terminal from './components/frontTerminal'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Terminal
   }
 }
 </script>

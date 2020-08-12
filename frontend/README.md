@@ -1,7 +1,24 @@
-# Otamesi
-k8s + Vue(vite)でつくる学習用コンテナ自走デプロイアプリケーション
+# frontend
 
-# How to 開発環境デプロイ
+## Project setup
+```
+npm install
+```
 
-1. k8sディレクトリ内のマニフェストのmountパスを修正
-2. kubectl apply -f ./k8s
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

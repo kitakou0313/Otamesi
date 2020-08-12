@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import axios from '../../node_modules/axios';
+
+import { Terminal } from 'xterm';
 /*
 import { Terminal } from '../../node_modules/xterm/lib/xterm';
 import { AttachAddon } from 'xterm-addon-attach';*/
@@ -22,7 +23,7 @@ export default {
         terminal.loadAddon(attachAddon);
         */
         this.term.open(document.getElementById('terminal'));
-        this.term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+        this.term.write('')
     }
 }
 </script>

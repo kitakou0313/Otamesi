@@ -18,4 +18,4 @@ io.on("connect", (socket) => {
   socket.on("disconnect", () => term.destroy());
 });
 
-server.listen(5000);
+server.listen(6000);

@@ -1,18 +1,21 @@
-var os = require("os");
-var pty = require("node-pty");
+const pty = require("node-pty");
+const Io = require("socket.io");
 
-var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
+const express = require('express');
+const app = express()
+const server = require('http').createServer(app)
 
-var ptyProcess = pty.spawn(shell, [], {
-  name: "xterm-color",
-  cols: 80,
-  rows: 30,
-  cwd: process.env.HOME,
-  env: process.env,
+var io = new Io(server);
+io.on('connect', socket => {
+  var term = pty.spawn("bash", [], {
+    name: "xterm-color",
+    cols: 80,
+    rows: 24
+  });
+
+  term.on('data', data => socket.emit('data', data));
+  socket.on('data', data => term.write('data', data));
+  socket.on('disconnect', () => term.destroy());
 });
 
-ptyProcess.on("data", function (data) {
-  process.stdout.write(data);
-});
-
-ptyProcess.write("echo Hello, node-pty-server!\r");
+server.listen(3000);

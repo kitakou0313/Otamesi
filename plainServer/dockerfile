@@ -1,6 +1,6 @@
 FROM node:lts
 
-RUN npm install node-pty os
+RUN npm install node-pty socket.io express http
 
 COPY index.js index.js
 

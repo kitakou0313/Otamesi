@@ -20,4 +20,5 @@ io.on("connect", (socket) => {
   socket.on("disconnect", () => term.destroy());
 });
 
+console.log("Server has awaken")
 server.listen(8000);

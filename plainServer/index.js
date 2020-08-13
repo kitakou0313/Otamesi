@@ -13,9 +13,11 @@ io.on("connect", (socket) => {
     rows: 24,
   });
 
+  console.log("Conecion come")
+
   term.on("data", (data) => socket.emit("data", data));
   socket.on("data", (data) => term.write("data", data));
   socket.on("disconnect", () => term.destroy());
 });
 
-server.listen(6000);
+server.listen(8000);

@@ -17,7 +17,7 @@ spec:
       volumes:
         - name: src
           hostPath:
-            path: "//C/Users/17T2055F/Desktop/ayamati/otamesi"
+            path: "//C/Users/17T2055F/Desktop/ayamati/otamesi/frontend"
             type: DirectoryOrCreate
       containers:
         - image: node:lts
@@ -27,10 +27,10 @@ spec:
             - mountPath: /usr/src/app
               name: src
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
               name: npmdev
           command:
             - /bin/bash
           args:
             - -c
-            - npm install && npm run dev
+            - npm install && npm run serve

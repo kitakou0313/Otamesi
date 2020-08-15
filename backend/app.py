@@ -7,7 +7,9 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
 config.load_incluster_config()
-apps_v1 = client.AppsV1Api()
+
+apps_v1 = client.AppsV1Api()  # for server deployment
+core_v1_api = client.CoreV1Api()  # for LB deployment
 
 
 @app.route('/')
@@ -25,6 +27,8 @@ def makeServer():
     deployment = containerMaker.create_deployment_object()
     containerMaker.create_deployment(apps_v1, deployment)
 
+    containerMaker.create_LoadBalancer(core_v1_api)
+
     return jsonify({
         "msg": "サーバメイキングテスト!!"
     })
@@ -34,6 +38,7 @@ def makeServer():
 def deleteServer():
 
     containerMaker.delete_deployment(apps_v1)
+    containerMaker.delete_LoadBalancer(core_v1_api)
 
     return jsonify({
         "msg": "サーバデリーとテスト!!"

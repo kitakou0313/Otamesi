@@ -8,3 +8,12 @@ k8s + Vue+flaskでつくる学習用コンテナ自動デプロイアプリケ�
 2．`k8s`ディレクトリのマニフェストのmountパスを書き換える
 
 3. kubectl apply -f ./k8s
+
+API test用
+
+コンテナ作成
+Invoke-WebRequest -Method GET  http://localhost:5000/servers
+
+コンテナ削除
+
+Invoke-WebRequest -Method DELETE  http://localhost:5000/servers

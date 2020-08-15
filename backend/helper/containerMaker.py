@@ -1,28 +1,25 @@
 from kubernetes import client, config
 
-DEPLOYMENT_NAME = "nginx-deployment"
+DEPLOYMENT_NAME = "ttyd"
 
 
 def create_deployment_object():
     # Configureate Pod template container
     container = client.V1Container(
-        name="nginx",
-        image="nginx:1.15.4",
-        ports=[client.V1ContainerPort(container_port=80)],
-        resources=client.V1ResourceRequirements(
-            requests={"cpu": "100m", "memory": "200Mi"},
-            limits={"cpu": "500m", "memory": "500Mi"}
-        )
+        name="ttyd",
+        image="tsl0922/ttyd",
+        ports=[client.V1ContainerPort(container_port=7681)],
+
     )
     # Create and configurate a spec section
     template = client.V1PodTemplateSpec(
-        metadata=client.V1ObjectMeta(labels={"app": "nginx"}),
+        metadata=client.V1ObjectMeta(labels={"app": "ttyd"}),
         spec=client.V1PodSpec(containers=[container]))
     # Create the specification of deployment
     spec = client.V1DeploymentSpec(
-        replicas=3,
+        replicas=1,
         template=template,
-        selector={'matchLabels': {'app': 'nginx'}})
+        selector={'matchLabels': {'app': 'ttyd'}})
     # Instantiate the deployment object
     deployment = client.V1Deployment(
         api_version="apps/v1",
@@ -35,10 +32,40 @@ def create_deployment_object():
 
 def create_deployment(api_instance, deployment):
     # Create deployement
-    api_response = api_instance.create_namespaced_deployment(
+    response = api_instance.create_namespaced_deployment(
         body=deployment,
         namespace="default")
-    print("Deployment created. status='%s'" % str(api_response.status))
+    print("Deployment created. status='%s'" % str(response.status))
+
+
+def create_LoadBalancer(api_instance):
+    body = client.V1Service(
+        api_version="v1",
+        kind="Service",
+        metadata=client.V1ObjectMeta(
+            name="service-ttyd"
+        ),
+        spec=client.V1ServiceSpec(
+            type="LoadBalancer",
+            selector={"app": "ttyd"},
+            ports=[client.V1ServicePort(
+                port=7681,
+                target_port=7681
+            )]
+        )
+    )
+    response = api_instance.create_namespaced_service(
+        namespace="default", body=body)
+    print("Service LoadBalancer created. status='%s'" % str(response.status))
+
+
+def delete_LoadBalancer(api_instance):
+    response = api_instance.delete_namespaced_service(
+        name="service-ttyd", namespace="default", body=client.V1DeleteOptions(
+            propagation_policy='Foreground',
+            grace_period_seconds=5))
+
+    print("Services deleted. status='%s'" % str(response.status))
 
 
 def update_deployment(api_instance, deployment):

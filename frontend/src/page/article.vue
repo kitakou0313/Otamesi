@@ -15,6 +15,7 @@ import frontTerminal from '../components/frontTerminal.vue'
 import backendAPI from '../api/index.js'
 
 export default {
+    props: ['id'],
     components: {
         frontTerminal,
         report

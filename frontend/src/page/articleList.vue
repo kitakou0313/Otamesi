@@ -7,7 +7,7 @@
         {{ data.id }}
       </template>
         <template v-slot:cell(Title)="data">
-            <router-link :to="{name:'articlePage', params:{ id: data.id }}">
+            <router-link :to="{name:'articlePage', params:{ id: data.item.id }}">
                  {{ data.item.Title }}
             </router-link>
       </template>

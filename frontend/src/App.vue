@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="background">
   <topnav></topnav>
   <main class="main-content">
     <div class="main-content-container" >
@@ -27,7 +27,6 @@ export default {
 .main-content {
   display: flex;
   flex-direction: column;
-  background-color: rgb(235, 235, 235);
 }
 .main-content-container{
   margin: 1%;

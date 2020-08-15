@@ -4,7 +4,7 @@
   <main class="main-content">
     <div class="main-content-container" >
       <div class="px-4">
-        <article-page />
+        <router-view></router-view>
       </div>
       </div>
   </main>
@@ -12,13 +12,11 @@
 </template>
 
 <script>
-import articlePage from './page/article.vue'
 import  topnav  from "./navitems/topnav.vue"
 
 export default {
   name: 'App',
   components: {
-    articlePage,
     topnav
   }
 }

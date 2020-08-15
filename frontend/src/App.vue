@@ -4,22 +4,21 @@
   <main class="main-content">
     <div class="main-content-container" >
       <div class="px-4">
-         <frontterminal></frontterminal>
+        <article-page />
       </div>
       </div>
   </main>
-
 </div>
 </template>
 
 <script>
-import frontterminal from './components/frontTerminal.vue'
+import articlePage from './page/article.vue'
 import  topnav  from "./navitems/topnav.vue"
 
 export default {
   name: 'App',
   components: {
-    frontterminal,
+    articlePage,
     topnav
   }
 }
@@ -28,7 +27,9 @@ export default {
 .main-content {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   background-color: rgb(235, 235, 235);
+}
+.main-content-container{
+  margin: 1%;
 }
 </style>

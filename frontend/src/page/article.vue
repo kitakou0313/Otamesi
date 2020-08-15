@@ -1,5 +1,6 @@
 <template>
 <div>
+    <b-card>
 <b-nav tabs fill>
     <b-nav-item @click="currentTab='report'">Report</b-nav-item>
     <b-nav-item @click="currentTab='front-terminal'">Terminal</b-nav-item>
@@ -7,6 +8,7 @@
 <keep-alive>
     <component :is="currentTab" />
 </keep-alive>
+    </b-card>
 </div>
 </template>
 

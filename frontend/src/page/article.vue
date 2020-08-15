@@ -12,10 +12,26 @@
 import report from '../components/report.vue'
 import frontTerminal from '../components/frontTerminal.vue'
 
+import backendAPI from '../api/index.js'
+
 export default {
     components: {
         frontTerminal,
         report
+  },
+  mounted(){
+      try {
+          backendAPI.get('/servers');
+      } catch (error) {
+          console.log(error)
+      }
+  },
+  destoryed(){
+      try {
+          backendAPI.delete('/servers');
+      } catch (error) {
+          console.log(error)
+      }
   },
   data() {
       return{

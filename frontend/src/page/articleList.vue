@@ -8,7 +8,7 @@
       </template>
         <template v-slot:cell(Title)="data">
             <router-link :to="{name:'articlePage', params:{ id: data.id }}">
-                {{ data.Title }}
+                 {{ data.item.Title }}
             </router-link>
       </template>
        </b-table>

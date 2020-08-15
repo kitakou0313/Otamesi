@@ -8,6 +8,4 @@ const backendAPI = axios.create({
     }
 })
 
-export {
-    backendAPI
-}
+export default backendAPI

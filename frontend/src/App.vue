@@ -1,7 +1,14 @@
 <template>
 <div>
   <topnav></topnav>
-  <frontterminal></frontterminal>
+  <main class="main-content">
+    <div class="main-content-container" >
+      <div class="px-4">
+         <frontterminal></frontterminal>
+      </div>
+      </div>
+  </main>
+
 </div>
 </template>
 
@@ -17,3 +24,11 @@ export default {
   }
 }
 </script>
+<style>
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: rgb(235, 235, 235);
+}
+</style>

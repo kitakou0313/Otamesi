@@ -7,8 +7,8 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="#">Try Trainings</b-nav-item>
-        <b-nav-item href="#">Make Trainings</b-nav-item>
+        <b-nav-item ><router-link :to="{name:'articleList'}" class="navbar-link">Try Trainings</router-link></b-nav-item>
+        <b-nav-item >Make Trainings</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -34,5 +34,11 @@ export default {
 </script>
 
 <style>
+.navbar-link{
+  color: #ffffff;
+}
 
+.navbar-link:hover{
+  color: #ffffff;
+}
 </style>

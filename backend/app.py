@@ -1,10 +1,14 @@
 from flask import Flask, jsonify
 from kubernetes import client, config
 
+from flask_cors import CORS
+
 from helper import containerMaker
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+
+CORS(app)
 
 config.load_incluster_config()
 

@@ -1,14 +1,10 @@
 <template>
 <div>
-    <b-card>
-<b-nav tabs fill>
-    <b-nav-item @click="currentTab='report'">Report</b-nav-item>
-    <b-nav-item @click="currentTab='front-terminal'">Terminal</b-nav-item>
-</b-nav>
-<keep-alive>
-    <component :is="currentTab" />
-</keep-alive>
-    </b-card>
+    <h4>Question title</h4>
+    <b-card-group deck>
+        <report></report>
+        <front-terminal></front-terminal>
+    </b-card-group>
 </div>
 </template>
 
@@ -22,9 +18,8 @@ export default {
         report
   },
   data() {
-    return {
-      currentTab : "report"
-    }
+      return{
+      }
     }
 }
 </script>

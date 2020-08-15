@@ -1,10 +1,10 @@
 <template>
-<div>
+<b-card>
  <b-embed
     type="iframe"
     src="http://localhost:7681"
   ></b-embed>
-</div>
+</b-card>
 </template>
 
 <script>

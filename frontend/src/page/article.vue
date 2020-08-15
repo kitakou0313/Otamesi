@@ -27,7 +27,7 @@ export default {
           console.log(error)
       }
   },
-  destoryed(){
+  beforeDestroy(){
       try {
           backendAPI.delete('/servers');
       } catch (error) {

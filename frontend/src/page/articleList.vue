@@ -2,13 +2,13 @@
 <b-card>
    <b-card-title>List of Trainings</b-card-title>
    <b-card-body>
-       <b-table striped hover :items="items">
+       <b-table striped hover :items="items" :fields="fields">
         <template v-slot:cell(index)="data">
         {{ data.id }}
       </template>
         <template v-slot:cell(Title)="data">
             <router-link :to="{name:'articlePage', params:{ id: data.item.id }}">
-                 {{ data.item.Title }}
+                {{ data.item.Title }}
             </router-link>
       </template>
        </b-table>
@@ -17,13 +17,24 @@
 </template>
 
 <script>
+import backendAPI from '../api/index.js'
 export default {
+
+    async created(){
+        try {
+            const res = (await backendAPI.get('/articles')).data
+            this.items = res
+        } catch (error) {
+            console.log(error)
+        }
+    },
     data(){
         return {
-            items:[
-                 { id: 40, Title: 'Test' },
-                 { id: 21, Title: 'Test2' },
-            ]
+            items:null,
+            fields: [
+          { key: 'id', label: 'ID' },
+          { key: 'Title', label: 'Title of article' }
+        ],
         }
     }
 }

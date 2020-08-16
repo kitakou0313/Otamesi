@@ -5,7 +5,7 @@
      <b-card-body>
               <b-form-textarea
               id="textarea"
-              v-model="text"
+              v-model="articleData.report"
               placeholder="Enter something..."
               rows="10"
     ></b-form-textarea>
@@ -16,11 +16,21 @@
 </template>
 
 <script>
+import backendAPI from '../api/index.js'
 export default {
     name:"report",
+    props: ['id'],
+    async created(){
+      try {
+          const res = (await backendAPI.get(`/articles/${this.id}`)).data;
+          this.articleData = res
+      } catch (error) {
+          console.log(error)
+      }
+  },
     data(){
         return{
-            text:"Test hogehoge"
+            articleData:{}
         }
     }
 }

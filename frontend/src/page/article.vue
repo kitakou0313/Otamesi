@@ -3,7 +3,7 @@
     <h4>Question title</h4>
     <Loading v-if="loading" :active="loading" :is-full-page="true" />
     <b-card-group deck v-else>
-        <report></report>
+        <report :id="id"></report>
         <front-terminal></front-terminal>
     </b-card-group>
 </div>
@@ -17,7 +17,12 @@ import Loading from 'vue-loading-overlay'
 import backendAPI from '../api/index.js'
 
 export default {
-    props: ['id'],
+    props: {
+        id: {
+      type: Number,
+      required: true
+    }
+    },
     components: {
         frontTerminal,
         report,
@@ -30,7 +35,7 @@ export default {
   },
   async created(){
       try {
-          await backendAPI.get('/servers');
+          await backendAPI.get(`/servers/${this.id}`);
       } catch (error) {
           console.log(error)
       }

@@ -1,4 +1,5 @@
 from kubernetes import client, config
+import time
 
 DEPLOYMENT_NAME = "ttyd"
 
@@ -30,12 +31,24 @@ def create_deployment_object():
     return deployment
 
 
-def create_deployment(api_instance, deployment):
+def read_pod_status(api_instance, podName):
+    response = api_instance.read_namespaced_pod_status(
+        namespace="default", name=podName)
+    return response.status.phase
+
+
+def create_deployment(api_instance, core_v1_api, deployment):
     # Create deployement
-    response = api_instance.create_namespaced_deployment(
+    api_instance.create_namespaced_deployment(
         body=deployment,
         namespace="default")
-    print("Deployment created. status='%s'" % str(response.status))
+
+    time.sleep(5)
+    response = core_v1_api.list_pod_for_all_namespaces(watch=False)
+
+    for pod in response.items:
+        if("ttyd" in pod.metadata.name):
+            return pod.metadata.name
 
 
 def create_LoadBalancer(api_instance):

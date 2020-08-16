@@ -3,6 +3,11 @@ import time
 
 DEPLOYMENT_NAME = "ttyd"
 
+config.load_incluster_config()
+
+apps_v1 = client.AppsV1Api()  # for server deployment
+core_v1_api = client.CoreV1Api()  # for LB deployment
+
 
 def create_deployment_object():
     # Configureate Pod template container
@@ -31,15 +36,15 @@ def create_deployment_object():
     return deployment
 
 
-def read_pod_status(api_instance, podName):
-    response = api_instance.read_namespaced_pod_status(
+def read_pod_status(podName):
+    response = core_v1_api.read_namespaced_pod_status(
         namespace="default", name=podName)
     return response.status.phase
 
 
-def create_deployment(api_instance, core_v1_api, deployment):
+def create_deployment(deployment):
     # Create deployement
-    api_instance.create_namespaced_deployment(
+    apps_v1.create_namespaced_deployment(
         body=deployment,
         namespace="default")
 
@@ -51,7 +56,7 @@ def create_deployment(api_instance, core_v1_api, deployment):
             return pod.metadata.name
 
 
-def create_LoadBalancer(api_instance):
+def create_LoadBalancer():
     body = client.V1Service(
         api_version="v1",
         kind="Service",
@@ -67,13 +72,13 @@ def create_LoadBalancer(api_instance):
             )]
         )
     )
-    response = api_instance.create_namespaced_service(
+    response = core_v1_api.create_namespaced_service(
         namespace="default", body=body)
     print("Service LoadBalancer created. status='%s'" % str(response.status))
 
 
-def delete_LoadBalancer(api_instance):
-    response = api_instance.delete_namespaced_service(
+def delete_LoadBalancer():
+    response = core_v1_api.delete_namespaced_service(
         name="service-ttyd", namespace="default", body=client.V1DeleteOptions(
             propagation_policy='Foreground',
             grace_period_seconds=5))
@@ -92,9 +97,9 @@ def update_deployment(api_instance, deployment):
     print("Deployment updated. status='%s'" % str(api_response.status))
 
 
-def delete_deployment(api_instance):
+def delete_deployment():
     # Delete deployment
-    api_response = api_instance.delete_namespaced_deployment(
+    api_response = apps_v1.delete_namespaced_deployment(
         name=DEPLOYMENT_NAME,
         namespace="default",
         body=client.V1DeleteOptions(

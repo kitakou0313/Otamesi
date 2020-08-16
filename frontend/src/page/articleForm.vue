@@ -45,7 +45,7 @@ export default {
     methods:{
         async submit(){
             try {
-                (await backendAPI.post('/article/new', this.newArticle)).data
+                (await backendAPI.post('/articles/new', this.newArticle)).data
 
             } catch (error) {
                 console.log(error)

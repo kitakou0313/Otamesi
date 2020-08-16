@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 from flask_cors import CORS
 
@@ -48,6 +48,22 @@ def returnArticleList():
 @app.route('/articles/<int:idNum>', methods=['GET'])
 def returnArticle(idNum=None):
     return jsonify(listOfArticles[idNum])
+
+
+@app.route('/articles/new', methods=['POST'])
+def makeNewArticle():
+    data = request.get_json()
+
+    app.logger.debug("Posted Article ", data)
+
+    data["id"] = len(listOfArticles)
+    data["report"] = "HogeHoge"
+
+    listOfArticles.append(data)
+
+    return jsonify({
+        "msg": "Make new article!!!"
+    })
 
 
 @app.route('/servers/<int:idNum>', methods=['GET'])

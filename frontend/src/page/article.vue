@@ -17,7 +17,12 @@ import Loading from 'vue-loading-overlay'
 import backendAPI from '../api/index.js'
 
 export default {
-    props: ['id'],
+    props: {
+        id: {
+      type: Number,
+      required: true
+    }
+    },
     components: {
         frontTerminal,
         report,

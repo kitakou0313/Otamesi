@@ -21,7 +21,7 @@ export default new Router({
             props: true
         },
         {
-            path: '/article/new',
+            path: '/article-new',
             name: 'articleForm',
             component: articleForm,
         }

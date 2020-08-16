@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sample-ingress
+spec:
+  rules:
+    - host: localhost:8080
+      http:
+        paths:
+          - path: /api/*
+            backend:
+              serviceName: api
+              servicePort: 5000
+          - path: /*
+            backend:
+              serviceName: npmdev
+              servicePort: 8080
+  backend:
+    serviceName: sample-ingress-default
+    servicePort: 8888

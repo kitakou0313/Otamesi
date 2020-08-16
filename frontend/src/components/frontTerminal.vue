@@ -12,7 +12,11 @@
 
 <script>
 export default {
-    name:"front-terminal"
+    name:"front-terminal",
+    async created(){
+       const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+       await _sleep(15000);
+    }
 }
 </script>
 

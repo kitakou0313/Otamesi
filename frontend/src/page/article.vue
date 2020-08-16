@@ -1,7 +1,8 @@
 <template>
 <div>
     <h4>Question title</h4>
-    <b-card-group deck>
+    <Loading v-if="loading" :active="loading" :is-full-page="true" />
+    <b-card-group deck v-else>
         <report></report>
         <front-terminal></front-terminal>
     </b-card-group>
@@ -11,6 +12,7 @@
 <script>
 import report from '../components/report.vue'
 import frontTerminal from '../components/frontTerminal.vue'
+import Loading from 'vue-loading-overlay'
 
 import backendAPI from '../api/index.js'
 
@@ -18,26 +20,29 @@ export default {
     props: ['id'],
     components: {
         frontTerminal,
-        report
+        report,
+        Loading
   },
-  mounted(){
-      try {
-          backendAPI.get('/servers');
-      } catch (error) {
-          console.log(error)
-      }
-  },
-  beforeDestroy(){
-      try {
-          backendAPI.delete('/servers');
-      } catch (error) {
-          console.log(error)
-      }
-  },
-  data() {
+  data(){
       return{
+          loading:true
       }
-    }
+  },
+  async created(){
+      try {
+          await backendAPI.get('/servers');
+      } catch (error) {
+          console.log(error)
+      }
+      this.loading = false
+  },
+  async beforeDestroy(){
+      try {
+         await backendAPI.delete('/servers');
+      } catch (error) {
+          console.log(error)
+      }
+  },
 }
 </script>
 

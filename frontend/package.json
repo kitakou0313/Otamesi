@@ -13,6 +13,7 @@
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-loading-overlay": "^3.3.3",
     "vue-router": "^3.4.3",
     "xterm": "^4.8.1",
     "xterm-addon-attach": "^0.6.0"

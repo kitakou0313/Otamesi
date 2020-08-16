@@ -9,11 +9,11 @@ apps_v1 = client.AppsV1Api()  # for server deployment
 core_v1_api = client.CoreV1Api()  # for LB deployment
 
 
-def create_deployment_object():
+def create_deployment_object(deployImage):
     # Configureate Pod template container
     container = client.V1Container(
         name="ttyd",
-        image="tsl0922/ttyd",
+        image=deployImage,
         ports=[client.V1ContainerPort(container_port=7681)],
 
     )

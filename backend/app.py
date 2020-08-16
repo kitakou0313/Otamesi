@@ -10,6 +10,21 @@ app.config['JSON_AS_ASCII'] = False
 
 CORS(app)
 
+listOfArticles = [
+    {
+        "id": 0,
+        "Title": 'Test',
+        "deployImage": "tsl0922/ttyd",
+        "report": "Test you desu",
+    },
+    {
+        "id": 1,
+        "Title": 'Test2',
+        "deployImage": "tsl0922/ttyd",
+        "report": "Test2 you desu",
+    }
+]
+
 
 @app.route('/')
 def index():
@@ -18,9 +33,28 @@ def index():
     })
 
 
-@app.route('/servers', methods=['GET'])
-def makeServer():
-    deployment = containerMaker.create_deployment_object()
+@app.route('/articles', methods=['GET'])
+def returnArticleList():
+    resList = []
+    for article in listOfArticles:
+        formated = {
+            "id": article["id"],
+            "Title": article["Title"]
+        }
+        resList.append(formated)
+    return jsonify(resList)
+
+
+@app.route('/articles/<int:idNum>', methods=['GET'])
+def returnArticle(idNum=None):
+    return jsonify(listOfArticles[idNum])
+
+
+@app.route('/servers/<int:idNum>', methods=['GET'])
+def makeServer(idNum=None):
+    deployArticle = listOfArticles[idNum]
+    deployment = containerMaker.create_deployment_object(
+        deployArticle["deployImage"])
     podname = containerMaker.create_deployment(deployment)
     containerMaker.create_LoadBalancer()
 

@@ -37,7 +37,6 @@ export default {
     data(){
         return {
             newArticle:{
-                id:3,
                 Title:"",
                 deployImage:""
             }

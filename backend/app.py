@@ -38,7 +38,8 @@ def makeServer():
             break
 
     return jsonify({
-        "msg": "サーバメイキングテスト!!"
+        "msg": "サーバメイキングテスト!!",
+        "Made pod name": podname
     })
 
 

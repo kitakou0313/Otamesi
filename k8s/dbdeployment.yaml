@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-pod-psql
+  labels:
+    app: sample-pod-psql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-pod-psql
+  template:
+    metadata:
+      labels:
+        app: sample-pod-psql
+    spec:
+      containers:
+        - name: sample-pod-psql
+          image: postgres:11
+          env:
+            - name: POSTGRES_PASSWORD
+              value: secret
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_DB
+              value: rails_deployment
+          ports:
+            - containerPort: 5432
+              name: sample-pod-psql

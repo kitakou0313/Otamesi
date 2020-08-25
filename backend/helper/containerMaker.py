@@ -1,6 +1,8 @@
 from kubernetes import client, config
 import time
 
+from helper import randomStringGen
+
 DEPLOYMENT_NAME = "ttyd"
 
 config.load_incluster_config()
@@ -30,7 +32,8 @@ def create_deployment_object(deployImage):
     deployment = client.V1Deployment(
         api_version="apps/v1",
         kind="Deployment",
-        metadata=client.V1ObjectMeta(name=DEPLOYMENT_NAME),
+        metadata=client.V1ObjectMeta(
+            name=DEPLOYMENT_NAME + randomStringGen.genRandomLowerString()),
         spec=spec)
 
     return deployment
@@ -56,12 +59,12 @@ def create_deployment(deployment):
             return pod.metadata.name
 
 
-def create_LoadBalancer():
+def create_LoadBalancer(deployementName):
     body = client.V1Service(
         api_version="v1",
         kind="Service",
         metadata=client.V1ObjectMeta(
-            name="service-ttyd"
+            name=deployementName
         ),
         spec=client.V1ServiceSpec(
             type="LoadBalancer",
@@ -77,9 +80,9 @@ def create_LoadBalancer():
     print("Service LoadBalancer created. status='%s'" % str(response.status))
 
 
-def delete_LoadBalancer():
+def delete_LoadBalancer(deployementName):
     response = core_v1_api.delete_namespaced_service(
-        name="service-ttyd", namespace="default", body=client.V1DeleteOptions(
+        name=deployementName, namespace="default", body=client.V1DeleteOptions(
             propagation_policy='Foreground',
             grace_period_seconds=5))
 
@@ -97,10 +100,10 @@ def update_deployment(api_instance, deployment):
     print("Deployment updated. status='%s'" % str(api_response.status))
 
 
-def delete_deployment():
+def delete_deployment(deploymentName):
     # Delete deployment
     api_response = apps_v1.delete_namespaced_deployment(
-        name=DEPLOYMENT_NAME,
+        name=deploymentName,
         namespace="default",
         body=client.V1DeleteOptions(
             propagation_policy='Foreground',

@@ -25,6 +25,8 @@ listOfArticles = [
     }
 ]
 
+deploymentsMap = {}
+
 
 @app.route('/')
 def index():
@@ -72,7 +74,7 @@ def makeServer(idNum=None):
     deployment = containerMaker.create_deployment_object(
         deployArticle["deployImage"])
     podname = containerMaker.create_deployment(deployment)
-    containerMaker.create_LoadBalancer()
+    containerMaker.create_LoadBalancer(deployment.metadata.name)
 
     while(True):
         time.sleep(3)
@@ -80,17 +82,22 @@ def makeServer(idNum=None):
         if(containerMaker.read_pod_status(podname) == "Running"):
             break
 
+    # redisにする
+    deploymentsMap[idNum] = deployment.metadata.name
+
     return jsonify({
         "msg": "サーバメイキングテスト!!",
         "Made pod name": podname
     })
 
 
-@app.route('/servers', methods=['DELETE'])
-def deleteServer():
+@app.route('/servers/<int:idNum>', methods=['DELETE'])
+def deleteServer(idNum=None):
 
-    containerMaker.delete_deployment()
-    containerMaker.delete_LoadBalancer()
+    containerMaker.delete_deployment(deploymentsMap[idNum])
+    containerMaker.delete_LoadBalancer(deploymentsMap[idNum])
+
+    del deploymentsMap[idNum]
 
     return jsonify({
         "msg": "サーバデリートテスト!!"

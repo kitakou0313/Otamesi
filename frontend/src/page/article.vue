@@ -43,7 +43,7 @@ export default {
   },
   async beforeDestroy(){
       try {
-         await backendAPI.delete('/servers');
+         await backendAPI.delete(`/servers/${this.id}`);
       } catch (error) {
           console.log(error)
       }

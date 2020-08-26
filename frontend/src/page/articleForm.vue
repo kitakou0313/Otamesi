@@ -17,12 +17,12 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="DeployImage:" label-for="input-2" description="Please use tsl0922/ttyd image in FROM to access container from browsee.">
+      <b-form-group id="input-group-2" label="DeployImage:" label-for="input-2" description="Please use tsl0922/ttyd image in FROM to access container from browser.">
         <b-form-input
           id="input-2"
           v-model="newArticle.deployImage"
           required
-          placeholder="Enter docker hub tub"
+          placeholder="Enter docker tub image"
         ></b-form-input>
       </b-form-group>
        </b-card-body>

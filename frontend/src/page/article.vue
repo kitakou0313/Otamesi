@@ -1,11 +1,13 @@
 <template>
 <div>
+<Loading v-if="loading" :active="loading" :is-full-page="true" />
+<div v-else>
     <h4>{{article.Title}}</h4>
-    <Loading v-if="loading" :active="loading" :is-full-page="true" />
-    <b-card-group deck v-else>
+    <b-card-group deck>
         <report :id="id"></report>
         <front-terminal></front-terminal>
     </b-card-group>
+</div>
 </div>
 </template>
 
@@ -31,13 +33,13 @@ export default {
   data(){
       return{
           loading:true,
-          article:null
+          article:{}
       }
   },
   async created(){
       try {
-          await backendAPI.get(`/servers/${this.id}`);
           const res = (await backendAPI.get(`/articles/${this.id}`)).data;
+          await backendAPI.get(`/servers/${this.id}`);
           this.article = res;
       } catch (error) {
           console.log(error)

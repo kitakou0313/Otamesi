@@ -13,13 +13,13 @@ CORS(app)
 listOfArticles = [
     {
         "id": 0,
-        "Title": 'Test',
+        "Title": '外に接続できない！',
         "deployImage": "tsl0922/ttyd",
         "report": "Test you desu",
     },
     {
         "id": 1,
-        "Title": 'Test2',
+        "Title": 'FTPできない！',
         "deployImage": "tsl0922/ttyd",
         "report": "Test2 you desu",
     }

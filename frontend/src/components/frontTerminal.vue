@@ -1,6 +1,6 @@
 <template>
 <b-card>
-   <b-card-title>Terminal of hogehoge</b-card-title>
+   <b-card-title>Terminal</b-card-title>
    <b-card-body>
  <b-embed
     type="iframe"

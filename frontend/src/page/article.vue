@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h4>Question title</h4>
+    <h4>{{article.Title}}</h4>
     <Loading v-if="loading" :active="loading" :is-full-page="true" />
     <b-card-group deck v-else>
         <report :id="id"></report>
@@ -30,12 +30,15 @@ export default {
   },
   data(){
       return{
-          loading:true
+          loading:true,
+          article:null
       }
   },
   async created(){
       try {
           await backendAPI.get(`/servers/${this.id}`);
+          const res = (await backendAPI.get(`/articles/${this.id}`)).data;
+          this.article = res;
       } catch (error) {
           console.log(error)
       }

@@ -1,5 +1,5 @@
 # Otamesi
-k8s+Vue+flask+psqlでつくる学習用コンテナ自動デプロイwebアプリケーション
+k8s+Vue+flaskでつくる学習用コンテナ自動デプロイwebアプリケーション
 
 Voyage group #サマーハッカソン制作物
 

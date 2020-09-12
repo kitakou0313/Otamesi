@@ -1,3 +1,4 @@
 Flask
 kubernetes
 flask-cors
+requests

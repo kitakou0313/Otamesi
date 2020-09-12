@@ -4,6 +4,7 @@ from flask_cors import CORS
 
 from helper import containerMaker
 import time
+import requests
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -75,12 +76,13 @@ def makeServer(idNum=None):
         deployArticle["deployImage"])
     podname = containerMaker.create_deployment(deployment)
     containerMaker.create_LoadBalancer(deployment.metadata.name)
-
+    """
     while(True):
         time.sleep(3)
         app.logger.debug("Made pod is ", podname)
-        if(containerMaker.read_pod_status(podname) == "Running"):
-            break
+        r = requests.get("http://" + podname)
+        if r.status_code == "200":
+            break"""
 
     # redisにする
     deploymentsMap[idNum] = deployment.metadata.name

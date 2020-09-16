@@ -29,14 +29,14 @@ listOfArticles = [
 deploymentsMap = {}
 
 
-@app.route('/')
+@app.route('/api')
 def index():
     return jsonify({
         "message": "テスト!!"
     })
 
 
-@app.route('/articles', methods=['GET'])
+@app.route('/api/articles', methods=['GET'])
 def returnArticleList():
     resList = []
     for article in listOfArticles:
@@ -48,12 +48,12 @@ def returnArticleList():
     return jsonify(resList)
 
 
-@app.route('/articles/<int:idNum>', methods=['GET'])
+@app.route('/api/articles/<int:idNum>', methods=['GET'])
 def returnArticle(idNum=None):
     return jsonify(listOfArticles[idNum])
 
 
-@app.route('/articles/new', methods=['POST'])
+@app.route('/api/articles/new', methods=['POST'])
 def makeNewArticle():
     data = request.get_json()
 
@@ -69,7 +69,7 @@ def makeNewArticle():
     })
 
 
-@app.route('/servers/<int:idNum>', methods=['GET'])
+@app.route('/api/servers/<int:idNum>', methods=['GET'])
 def makeServer(idNum=None):
     deployArticle = listOfArticles[idNum]
     deployment = containerMaker.create_deployment_object(
@@ -93,7 +93,7 @@ def makeServer(idNum=None):
     })
 
 
-@app.route('/servers/<int:idNum>', methods=['DELETE'])
+@app.route('/api/servers/<int:idNum>', methods=['DELETE'])
 def deleteServer(idNum=None):
 
     containerMaker.delete_deployment(deploymentsMap[idNum])

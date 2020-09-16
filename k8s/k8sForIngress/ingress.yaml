@@ -4,14 +4,14 @@ metadata:
   name: sample-ingress
 spec:
   rules:
-    - host: localhost:8080
+    - host: localhost
       http:
         paths:
-          - path: /api/*
+          - path: /api
             backend:
               serviceName: api
               servicePort: 5000
-          - path: /*
+          - path: /
             backend:
               serviceName: npmdev
               servicePort: 8080

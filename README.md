@@ -1,5 +1,6 @@
 # Otamesi
-k8s+Vue+flaskでつくる学習用コンテナ自動デプロイwebアプリケーション
+
+k8s+Vue+flask でつくる学習用コンテナ自動デプロイ web アプリケーション
 
 Voyage group #サマーハッカソン制作物
 
@@ -9,9 +10,11 @@ Voyage group #サマーハッカソン制作物
 
 1. リポジトリをダウンロード
 
-2. `k8s`ディレクトリのマニフェストのmountパスを書き換える
+2. `k8s`ディレクトリのマニフェストの mount パスを書き換える
 
-3. kubectl apply -f ./k8s
+3. `k8s\installIngress.ps1` を実行（ローカルで ingress を利用するための環境をデプロイ）
+
+4. kubectl apply -R -f ./k8s
 
 **紹介資料**
 

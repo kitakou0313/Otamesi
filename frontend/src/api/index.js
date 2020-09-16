@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const backendAPI = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://localhost/api',
     headers: {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest'

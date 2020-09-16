@@ -1,15 +1,11 @@
 from flask import Flask, jsonify, request
 
-from flask_cors import CORS
-
 from helper import containerMaker
 import time
 import requests
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
-
-CORS(app)
 
 listOfArticles = [
     {

@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 
 from helper import containerMaker
+from helper import ttydChecker
+
 import time
 import requests
 
@@ -72,13 +74,14 @@ def makeServer(idNum=None):
         deployArticle["deployImage"])
     podname = containerMaker.create_deployment(deployment)
     containerMaker.create_LoadBalancer(deployment.metadata.name)
-    """
+
     while(True):
         time.sleep(3)
         app.logger.debug("Made pod is ", podname)
-        r = requests.get("http://" + podname)
-        if r.status_code == "200":
-            break"""
+        app.logger.debug(ttydChecker.comfirmTtydStart(
+            deployment.metadata.name))
+        if ttydChecker.comfirmTtydStart(deployment.metadata.name) == 200:
+            break
 
     # redisにする
     deploymentsMap[idNum] = deployment.metadata.name

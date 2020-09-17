@@ -20,7 +20,7 @@ spec:
             path: "//C/Users/17T2055F/Desktop/ayamati/otamesi/backend"
             type: DirectoryOrCreate
       containers:
-        - image: kitakou0313/flask_with_k8s:CORS
+        - image: kitakou0313/flask_with_k8s:latest
           env:
             - name: FLASK_ENV
               value: development

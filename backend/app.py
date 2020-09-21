@@ -13,7 +13,7 @@ listOfArticles = [
     {
         "id": 0,
         "Title": '外に接続できない！',
-        "deployImage": "tsl0922/ttyd",
+        "deployImage": "nginx:1.12",
         "report": "Test you desu",
     },
     {

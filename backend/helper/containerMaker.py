@@ -14,15 +14,20 @@ core_v1_api = client.CoreV1Api()  # for LB deployment
 def create_deployment_object(deployImage):
     # Configureate Pod template container
     container = client.V1Container(
-        name="ttyd",
+        name="articleimg",
         image=deployImage,
-        ports=[client.V1ContainerPort(container_port=7681)],
-
     )
+
+    ttydContainer = client.V1Container(
+        name="ttyd",
+        image="kitakou0313/ubuntuwithttyd:20.10",
+        ports=[client.V1ContainerPort(container_port=7681)],
+    )
+
     # Create and configurate a spec section
     template = client.V1PodTemplateSpec(
         metadata=client.V1ObjectMeta(labels={"app": "ttyd"}),
-        spec=client.V1PodSpec(containers=[container]))
+        spec=client.V1PodSpec(containers=[container, ttydContainer], share_process_namespace=True))
     # Create the specification of deployment
     spec = client.V1DeploymentSpec(
         replicas=1,

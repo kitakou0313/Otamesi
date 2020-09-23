@@ -14,13 +14,13 @@ listOfArticles = [
         "id": 0,
         "Title": '外に接続できない！',
         "deployImage": "nginx:1.12",
-        "report": "Test you desu",
+        "detail": "サーバーの外にアクセスできません。8.8.8.8にpingが通るようにしてください。",
     },
     {
         "id": 1,
-        "Title": 'FTPできない！',
+        "Title": 'sshできない！',
         "deployImage": "tsl0922/ttyd",
-        "report": "Test2 you desu",
+        "detail": "サーバーにsshで接続できません。ssh test@localhostができるようにしてください。",
     }
 ]
 

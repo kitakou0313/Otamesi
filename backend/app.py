@@ -58,7 +58,6 @@ def makeNewArticle():
     app.logger.debug("Posted Article ", data)
 
     data["id"] = len(listOfArticles)
-    data["report"] = "HogeHoge"
 
     listOfArticles.append(data)
 

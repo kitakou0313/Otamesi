@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 import redis
 
 from helper import containerMaker
@@ -11,23 +13,50 @@ r = redis.Redis(host='redis', port=6379, db=0)
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///article.sqlite'
+
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
+
+
+class Article(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), nullable=False)
+    deployImage = db.Column(db.Text(), nullable=False)
+    detail = db.Column(db.Text(), nullable=False)
+
+    def __init__(self, title, deployImage, detail):
+        self.title, self.deployImage, self.detail = title, deployImage, detail
+
+
+class ArticleSchema(ma.Schema):
+    class Meta:
+        fields = ("id", 'title', 'deployImage', 'detail')
+
+
+articleSchema = ArticleSchema()
+articlesSchema = ArticleSchema(many=True)
+
 
 listOfArticles = [
     {
-        "id": 0,
-        "Title": '外に接続できない！',
+        "title": '外に接続できない！',
         "deployImage": "nginx:1.12",
         "detail": "サーバーの外にアクセスできません。8.8.8.8にpingが通るようにしてください。",
     },
     {
-        "id": 1,
-        "Title": 'sshできない！',
+        "title": 'sshできない！',
         "deployImage": "tsl0922/ttyd",
         "detail": "サーバーにsshで接続できません。ssh test@localhostができるようにしてください。",
     }
 ]
 
-deploymentsMap = {}
+db.create_all()
+for article in listOfArticles:
+    entryArticle = Article(
+        article["title"], article["deployImage"], article["detail"])
+    db.session.add(entryArticle)
+    db.session.commit()
 
 
 @app.route('/api')
@@ -39,31 +68,24 @@ def index():
 
 @app.route('/api/articles', methods=['GET'])
 def returnArticleList():
-    resList = []
-    for article in listOfArticles:
-        formated = {
-            "id": article["id"],
-            "Title": article["Title"]
-        }
-        resList.append(formated)
-    return jsonify(resList)
+    articles = Article.query.all()
+    return articlesSchema.jsonify(articles)
 
 
 @app.route('/api/articles/<int:idNum>', methods=['GET'])
 def returnArticle(idNum=None):
-    return jsonify(listOfArticles[idNum])
+    article = Article.query.get(idNum)
+    return articleSchema.jsonify(article)
 
 
 @app.route('/api/articles/new', methods=['POST'])
 def makeNewArticle():
-    data = request.get_json()
 
-    app.logger.debug("Posted Article ", data)
+    newArticle = Article(
+        request.json["title"], request.json["deployImage"], request.json["detail"])
 
-    data["id"] = len(listOfArticles)
-
-    listOfArticles.append(data)
-
+    db.session.add(newArticle)
+    db.session.commit()
     return jsonify({
         "msg": "Make new article!!!"
     })
@@ -71,14 +93,16 @@ def makeNewArticle():
 
 @app.route('/api/servers/<int:idNum>', methods=['GET'])
 def makeServer(idNum=None):
-    deployArticle = listOfArticles[idNum]
+    deployArticle = Article.query.get(idNum)
+
     deployment = containerMaker.create_deployment_object(
-        deployArticle["deployImage"])
+        deployArticle.deployImage)
+
     podname = containerMaker.create_deployment(deployment)
     containerMaker.create_LoadBalancer(deployment.metadata.name)
 
     while(True):
-        time.sleep(3)
+        time.sleep(2)
         app.logger.debug("Made pod is ", podname)
         app.logger.debug(ttydChecker.comfirmTtydStart(
             deployment.metadata.name))

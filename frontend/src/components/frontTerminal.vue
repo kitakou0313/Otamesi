@@ -1,6 +1,6 @@
 <template>
-<b-card>
-   <b-card-title>Terminal</b-card-title>
+<b-card header-tag="header" footer-tag="footer" no-body>
+   <b-card-header>ターミナル</b-card-header>
    <b-card-body>
  <b-embed
     type="iframe"

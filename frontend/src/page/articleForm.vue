@@ -1,5 +1,5 @@
 <template>
-<b-card>
+<b-card no-body>
     <b-form @submit="submit">
    <b-card-title>問題作りフォーム</b-card-title>
    <b-card-body>
@@ -25,6 +25,21 @@
           placeholder="Enter docker tub image"
         ></b-form-input>
       </b-form-group>
+
+      <b-form-group
+        id="input-group-3"
+        label="Article Detail"
+        label-for="input-3"
+      >
+        <b-form-textarea
+          id="input-3"
+          v-model="newArticle.detail"
+          type="text"
+          required
+          placeholder="Enter article's detail"
+        ></b-form-textarea>
+      </b-form-group>
+
        </b-card-body>
     <b-card-footer ><div class="text-right"><b-button type="submit">Submit</b-button></div></b-card-footer>
    </b-form>
@@ -38,7 +53,8 @@ export default {
         return {
             newArticle:{
                 Title:"",
-                deployImage:""
+                deployImage:"",
+                detail:""
             }
         }
     },

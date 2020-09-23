@@ -1,17 +1,11 @@
 <template>
- <b-card>
-     <b-card-title>Report</b-card-title>
-     <b-form >
+ <b-card header-tag="header" footer-tag="footer" no-body>
+     <b-card-header>概要</b-card-header>
      <b-card-body>
-              <b-form-textarea
-              id="textarea"
-              v-model="articleData.report"
-              placeholder="Enter something..."
-              rows="10"
-    ></b-form-textarea>
+         <b-card-text>
+         {{articleData.detail}}
+         </b-card-text>
      </b-card-body>
-     <b-card-footer ><div class="text-right"><b-button type="submit">Submit</b-button></div></b-card-footer>
-     </b-form>
  </b-card>
 </template>
 

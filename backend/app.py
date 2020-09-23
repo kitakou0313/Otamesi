@@ -1,10 +1,13 @@
 from flask import Flask, jsonify, request
+import redis
 
 from helper import containerMaker
 from helper import ttydChecker
 
 import time
 import requests
+
+r = redis.Redis(host='redis', port=6379, db=0)
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -83,7 +86,7 @@ def makeServer(idNum=None):
             break
 
     # redisにする
-    deploymentsMap[idNum] = deployment.metadata.name
+    r.set(idNum, deployment.metadata.name)
 
     return jsonify({
         "msg": "サーバメイキングテスト!!",
@@ -94,10 +97,13 @@ def makeServer(idNum=None):
 @app.route('/api/servers/<int:idNum>', methods=['DELETE'])
 def deleteServer(idNum=None):
 
-    containerMaker.delete_deployment(deploymentsMap[idNum])
-    containerMaker.delete_LoadBalancer(deploymentsMap[idNum])
+    deletingDeployName = r.get(idNum).decode()
+    app.logger.debug("Delete img name is ", deletingDeployName)
 
-    del deploymentsMap[idNum]
+    containerMaker.delete_deployment(deletingDeployName)
+    containerMaker.delete_LoadBalancer(deletingDeployName)
+
+    r.delete(idNum)
 
     return jsonify({
         "msg": "サーバデリートテスト!!"

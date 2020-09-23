@@ -3,12 +3,12 @@
    <b-card-title>List of Trainings</b-card-title>
    <b-card-body>
        <b-table striped hover :items="items" :fields="fields">
-        <template v-slot:cell(index)="data">
-        {{ data.id }}
+        <template v-slot:cell(id)="data">
+        {{ data.item.id }}
       </template>
-        <template v-slot:cell(Title)="data">
+        <template v-slot:cell(title)="data">
             <router-link :to="{name:'articlePage', params:{ id: data.item.id }}">
-                {{ data.item.Title }}
+                {{ data.item.title }}
             </router-link>
       </template>
        </b-table>
@@ -33,7 +33,7 @@ export default {
             items:null,
             fields: [
           { key: 'id', label: 'ID' },
-          { key: 'Title', label: 'Title of article' }
+          { key: 'title', label: 'Title of article' }
         ],
         }
     }

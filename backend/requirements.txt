@@ -1,3 +1,6 @@
 Flask
 kubernetes
 requests
+redis
+flask_sqlalchemy
+flask_marshmallow

@@ -33,7 +33,7 @@ export default {
             items:null,
             fields: [
           { key: 'id', label: 'ID' },
-          { key: 'Title', label: 'Title of article' }
+          { key: 'title', label: 'Title of article' }
         ],
         }
     }

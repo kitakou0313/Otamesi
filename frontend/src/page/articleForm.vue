@@ -10,7 +10,7 @@
       >
         <b-form-input
           id="input-1"
-          v-model="newArticle.Title"
+          v-model="newArticle.title"
           type="text"
           required
           placeholder="Enter Title"
@@ -52,7 +52,7 @@ export default {
     data(){
         return {
             newArticle:{
-                Title:"",
+                title:"",
                 deployImage:"",
                 detail:""
             }

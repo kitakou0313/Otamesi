@@ -2,7 +2,7 @@
 <div>
 <Loading v-if="loading" :active="loading" :is-full-page="true" />
 <div v-else>
-    <h4>{{article.Title}}</h4>
+    <h4>{{article.title}}</h4>
     <b-card-group deck>
         <report :id="id"></report>
         <front-terminal></front-terminal>

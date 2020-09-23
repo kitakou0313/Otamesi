@@ -1,8 +1,10 @@
 <template>
- <b-card>
-     <b-card-title>概要</b-card-title>
+ <b-card header-tag="header" footer-tag="footer" no-body>
+     <b-card-header>概要</b-card-header>
      <b-card-body>
+         <b-card-text>
          {{articleData.detail}}
+         </b-card-text>
      </b-card-body>
  </b-card>
 </template>

@@ -16,6 +16,6 @@ Voyage group #サマーハッカソン制作物
 
 4.`kubectl apply -R -f ./k8s`
 
-**紹介資料**
+**技育展での紹介資料**
 
 https://docs.google.com/presentation/d/1blVK5YSn7u9gGQ6ClBsU4RY-b98x1FxznFKHEE3CvSo/edit#slide=id.g9059ab6a2d_0_40

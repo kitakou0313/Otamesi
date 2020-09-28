@@ -1,6 +1,6 @@
 # Otamesi
 
-k8s+Vue+flask でつくる学習用コンテナ自動デプロイ web アプリケーション
+k8s+Vue+flask+sqlite でつくる学習用コンテナ自動デプロイ web アプリケーション
 
 Voyage group #サマーハッカソン制作物
 

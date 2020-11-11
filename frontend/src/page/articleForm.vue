@@ -1,7 +1,7 @@
 <template>
 <b-card no-body>
     <b-form @submit="submit">
-   <b-card-title>問題作りフォーム</b-card-title>
+   <b-card-title>問題制作フォーム</b-card-title>
    <b-card-body>
       <b-form-group
         id="input-group-1"
@@ -17,7 +17,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="DeployImage:" label-for="input-2" description="Please use tsl0922/ttyd image in FROM to access container from browser.">
+      <b-form-group id="input-group-2" label="DeployImage:" label-for="input-2" description="">
         <b-form-input
           id="input-2"
           v-model="newArticle.deployImage"

@@ -14,7 +14,7 @@ Voyage group #サマーハッカソン制作物
 
 3. `k8s\installIngress.ps1` を実行（ローカルで ingress を利用するための環境をデプロイ）
 
-4.`kubectl apply -R -f ./k8s`
+4. `kubectl apply -R -f ./k8s`
 
 **技育展での紹介資料**
 
